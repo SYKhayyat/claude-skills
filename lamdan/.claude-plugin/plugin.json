@@ -1,0 +1,12 @@
+{
+  "name": "lamdan",
+  "description": "Design critique: argues whether the code should exist and whether this is the way to build it.",
+  "version": "3.1.0",
+  "author": {
+    "name": "Shaul Khayyat",
+    "url": "https://github.com/SYKhayyat"
+  },
+  "homepage": "https://github.com/SYKhayyat/claude-skills",
+  "license": "MIT",
+  "keywords": ["review", "architecture", "design", "critique", "refactoring"]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "dilbert",
+  "description": "Explains a pull request or diff as a document a non-technical reader can follow end to end.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Shaul Khayyat",
+    "url": "https://github.com/SYKhayyat"
+  },
+  "homepage": "https://github.com/SYKhayyat/claude-skills",
+  "license": "MIT",
+  "keywords": ["pull-request", "explain", "documentation", "walkthrough", "onboarding"]
+}

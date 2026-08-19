@@ -1,0 +1,27 @@
+{
+  "name": "claude-skills",
+  "owner": {
+    "name": "Shaul Khayyat",
+    "url": "https://github.com/SYKhayyat"
+  },
+  "metadata": {
+    "description": "Claude Code skills for design critique and change explanation.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "lamdan",
+      "source": "./lamdan",
+      "description": "Design critique: argues whether the code should exist and whether this is the way to build it.",
+      "category": "code-review",
+      "keywords": ["review", "architecture", "design", "critique", "refactoring"]
+    },
+    {
+      "name": "dilbert",
+      "source": "./dilbert",
+      "description": "Explains a pull request or diff as a document a non-technical reader can follow end to end.",
+      "category": "documentation",
+      "keywords": ["pull-request", "explain", "documentation", "walkthrough", "onboarding"]
+    }
+  ]
+}

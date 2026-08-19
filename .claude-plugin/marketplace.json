@@ -11,17 +11,31 @@
   "plugins": [
     {
       "name": "lamdan",
+      "version": "1.0.0",
       "source": "./lamdan",
       "description": "Design critique: argues whether the code should exist and whether this is the way to build it.",
       "category": "code-review",
-      "keywords": ["review", "architecture", "design", "critique", "refactoring"]
+      "keywords": [
+        "review",
+        "architecture",
+        "design",
+        "critique",
+        "refactoring"
+      ]
     },
     {
       "name": "dilbert",
+      "version": "1.0.0",
       "source": "./dilbert",
       "description": "Explains a pull request or diff as a document a non-technical reader can follow end to end.",
       "category": "documentation",
-      "keywords": ["pull-request", "explain", "documentation", "walkthrough", "onboarding"]
+      "keywords": [
+        "pull-request",
+        "explain",
+        "documentation",
+        "walkthrough",
+        "onboarding"
+      ]
     }
   ]
 }

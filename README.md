@@ -20,7 +20,15 @@ In Claude Code:
 /plugin install dilbert@claude-skills
 ```
 
-Install either one on its own; they are independent.
+Install either one on its own; they are independent. The first command registers
+this repository as a marketplace — it does not install anything by itself.
+
+### Requirements
+
+- Claude Code with plugin support (`/plugin` must be a command it knows).
+- `git`, for both skills.
+- The `gh` CLI, authenticated — **dilbert only**, and only for `/dilbert <PR>`
+  or a GitHub URL. Branch, commit-range and working-tree modes need only `git`.
 
 ## Use
 
@@ -28,6 +36,8 @@ Install either one on its own; they are independent.
 /lamdan                    # sweep the whole repo, argue about the design
 /lamdan src/ingest         # aim it at a path, a PR, or a spec
 /lamdan doc                # write the argument to a file instead of chatting
+/lamdan fix                # apply changes instead of reporting
+/lamdan exhaustive         # every gap, small ones included
 
 /dilbert 60                # explain PR #60
 /dilbert some/branch       # explain a branch against its merge base
@@ -36,6 +46,15 @@ Install either one on its own; they are independent.
 ```
 
 Each skill's `SKILL.md` documents its own switches and failure modes in full.
+
+## Documentation
+
+| | |
+|---|---|
+| [docs/ONBOARDING.md](./docs/ONBOARDING.md) | Install, first run of each skill, how to read what they produce, what each one refuses to do, and how to hack on them. |
+| [docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md) | Install failures, skills that will not fire, tool-permission problems, `gh` auth, and the per-skill gotchas. |
+| [`lamdan/skills/lamdan/SKILL.md`](./lamdan/skills/lamdan/SKILL.md) | The lamdan skill itself. This is the real documentation. |
+| [`dilbert/skills/dilbert/SKILL.md`](./dilbert/skills/dilbert/SKILL.md) | The dilbert skill itself. Likewise. |
 
 ## Why these two
 
@@ -50,6 +69,24 @@ happened to surface.
 After the change, `dilbert` explains it. Plain words, every term defined before first use,
 real code quoted generously — two complete layers in one document, so the non-technical
 reader and the reviewer can both work from it.
+
+## Repository layout
+
+```
+.claude-plugin/marketplace.json    which plugins, where, and at what version
+lamdan/
+  .claude-plugin/plugin.json       the plugin's own manifest
+  skills/lamdan/SKILL.md           the skill — this is the product
+dilbert/
+  ...                              the same shape
+```
+
+`SKILL.md` is a prose document with YAML front matter. The `description` field
+is not decoration: it is what routes an invocation, so editing it changes
+whether the skill fires at all.
+
+Both the plugin manifest and the marketplace entry carry a version, and both have
+to move together on a release.
 
 ## License
 

@@ -1,0 +1,5 @@
+number,title,url,D,R,why,risk
+1,[Low/bug] lamdan doc dir collides with plugin dir,https://github.com/SYKhayyat/claude-skills/issues/1,1,2,Move to lamdan-out/; doc path collision only,Collision only
+2,[Low/bug] dilbert no chat-vs-file default blocks on Step 2,https://github.com/SYKhayyat/claude-skills/issues/2,1,3,Add default switch table; block is visible,Visible block
+3,[Low/bug] Dual-version release with no check,https://github.com/SYKhayyat/claude-skills/issues/3,1,2,CI version check; release metadata only,Metadata only
+4,[Low/bug] Agent-denied fallback untestable thin coverage,https://github.com/SYKhayyat/claude-skills/issues/4,2,2,Region cap + disclosure; docs/test-only,Test-only

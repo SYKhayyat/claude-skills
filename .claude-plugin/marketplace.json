@@ -36,6 +36,20 @@
         "walkthrough",
         "onboarding"
       ]
+    },
+    {
+      "name": "knobs",
+      "version": "1.0.0",
+      "source": "./knobs",
+      "description": "Extracts the hardcoded values that genuinely vary into typed config the code reads at runtime, and refuses the ones that don't.",
+      "category": "refactoring",
+      "keywords": [
+        "configuration",
+        "config",
+        "settings",
+        "hardcoded-values",
+        "refactoring"
+      ]
     }
   ]
 }

@@ -1,0 +1,12 @@
+{
+  "name": "knobs",
+  "description": "Finds the policy the code has already decided but never wrote down, and extracts the values that genuinely vary into typed config the code reads at runtime.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Shaul Khayyat",
+    "url": "https://github.com/SYKhayyat"
+  },
+  "homepage": "https://github.com/SYKhayyat/claude-skills",
+  "license": "MIT",
+  "keywords": ["configuration", "config", "settings", "hardcoded-values", "refactoring"]
+}

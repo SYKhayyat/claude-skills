@@ -11,6 +11,7 @@ Symptom first.
 - [Tool permissions](#tool-permissions)
 - [dilbert](#dilbert)
 - [lamdan](#lamdan)
+- [knobs](#knobs)
 - [Updating and versions](#updating-and-versions)
 - [Developing a change](#developing-a-change)
 
@@ -39,12 +40,13 @@ Check, in this order:
 
 ### The marketplace added but no plugins appear
 
-Adding a marketplace registers it; it does not install anything. Two more
-commands:
+Adding a marketplace registers it; it does not install anything. One more
+command per skill:
 
 ```
 /plugin install lamdan@claude-skills
 /plugin install dilbert@claude-skills
+/plugin install knobs@claude-skills
 ```
 
 The `@claude-skills` suffix names the marketplace. Without it, Claude Code does
@@ -52,7 +54,7 @@ not know where to look.
 
 ### `/plugin install` says the plugin is not found
 
-The names are `lamdan` and `dilbert`, lowercase. They are the `name` fields in
+The names are `lamdan`, `dilbert` and `knobs`, lowercase. They are the `name` fields in
 `.claude-plugin/marketplace.json`, not the directory names — which happen to
 match, but the manifest is what is read.
 
@@ -66,7 +68,7 @@ most builds.
 
 ## The skill does not fire
 
-### `/lamdan` or `/dilbert` is not recognised
+### `/lamdan`, `/dilbert` or `/knobs` is not recognised
 
 ```
 /plugin
@@ -77,9 +79,10 @@ If the plugin is not listed as installed, go back to
 
 ### It is installed and the slash command works, but nothing happens
 
-Both skills open by reading the repository, and both can spend a while before
-producing text — lamdan sweeps region by region and dilbert reads a whole diff.
-"Nothing happening" for a minute on a large repository is expected.
+All skills open by reading the repository, and all can spend a while before
+producing text — lamdan and knobs sweep region by region, dilbert reads a whole
+diff. "Nothing happening" for a minute on a large repository is expected. knobs
+is the slowest of the three, and it should ask you for scope before it starts.
 
 If it returns immediately with a short generic answer, the skill did not
 actually load. That is the same symptom as the next entry.
@@ -88,22 +91,23 @@ actually load. That is the same symptom as the next entry.
 
 The skill did not route. Two causes:
 
-1. **You described the task instead of invoking it.** Type `/lamdan` or
-   `/dilbert` explicitly rather than asking for "a design review".
+1. **You described the task instead of invoking it.** Type `/lamdan`,
+   `/dilbert` or `/knobs` explicitly rather than asking for "a design review".
 2. **The `description` front matter was edited.** In a local checkout, the
    `description` field in `SKILL.md` is what Claude Code matches against to
    decide whether a request should invoke the skill. Vague descriptions produce
    skills that never fire, or that fire constantly.
 
-### Both skills fire when I only wanted one
+### More than one skill fires when I only wanted one
 
 They have deliberately different jobs — one argues about design, one explains a
-change — so overlap usually means the request was ambiguous. Invoke the one you
-want by name.
+change, one extracts config — so overlap usually means the request was ambiguous.
+Invoke the one you want by name.
 
 ## Tool permissions
 
-Both skills declare:
+All three declare `Read`, `Grep`, `Glob`, `Bash`, `Agent` and `Write` (knobs also
+declares `Edit`, because it writes code changes):
 
 ```yaml
 allowed-tools:
@@ -112,12 +116,13 @@ allowed-tools:
   - Glob
   - Bash
   - Agent
+  - Edit   # knobs only
   - Write
 ```
 
 ### The skill stops and asks for permission repeatedly
 
-Expected in a restrictive permission mode — both read widely and both shell out
+Expected in a restrictive permission mode — all of them read widely and shell out
 to `git`. Allow the read-only tools (`Read`, `Grep`, `Glob`) and `Bash` for
 `git`, or run in a mode that does not prompt per call.
 
@@ -140,7 +145,7 @@ Use the default chat mode instead, or allow `Write`.
 
 ### `Agent` is denied
 
-Both skills can delegate. With `Agent` denied they will do the work inline,
+All three skills can delegate. With `Agent` denied they will do the work inline,
 which is slower and, on a large repository, may run out of room before the sweep
 finishes. If lamdan's coverage looks thin on a big codebase, check this first.
 
@@ -275,6 +280,44 @@ for something else, that is a collision worth knowing about.
 Wrong skill for that, and lamdan says so itself. `/code-review` and
 `/investigate` own correctness. Lamdan argues with the *intent*: should this
 exist, would you have built it this way, is the want it serves the real want.
+
+## knobs
+
+### It found a lot of knobs and I expected fewer
+
+Working as designed. The largest category is **never varies** — constants that
+are the same everywhere forever — and the skill argues against extracting those.
+If it still promoted values you consider structural, say which, and pull them.
+
+### It wants to refactor and I only wanted config
+
+Use `/knobs --no-deep`, which skips the structural sweep entirely. Deep findings
+need approval one at a time by design; the flag means you never see them.
+
+### It added a config file to a repo that already had one
+
+It should not have — the skill is instructed to extend the existing config
+system and to report what it found before asking. If it added a parallel file
+anyway, that is a bug worth reporting with the repo name.
+
+### It extracted values I did not ask for
+
+The default is one bulk question with a recommendation per row, not a prompt per
+finding. Re-read the table it showed you: it changed what it recommended as
+"change". You can answer "none" or name individual rows next time. Use
+`/knobs --notes-only` when you want the analysis with no writes at all.
+
+### The diff is enormous
+
+Each knob is its own commit, so revert them individually rather than resetting.
+If a single knob's change spans many files, the finding was probably classified
+deep and should have waited for approval.
+
+### It changed behavior
+
+It should not have. The invariant is that the new default equals the old literal
+exactly, and the skill verifies that. If behavior differs, that is a bug — report
+it with the key and the two values.
 
 ## Updating and versions
 

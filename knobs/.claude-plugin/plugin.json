@@ -1,0 +1,12 @@
+{
+  "name": "knobs",
+  "description": "Finds the policy the code has already decided but never wrote down, and turns the chosen ones into metadata the code reads at runtime.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Shaul Khayyat",
+    "url": "https://github.com/SYKhayyat"
+  },
+  "homepage": "https://github.com/SYKhayyat/claude-skills",
+  "license": "MIT",
+  "keywords": ["configuration", "policy", "metadata", "hardcoded-values", "refactoring"]
+}

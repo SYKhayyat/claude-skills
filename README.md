@@ -1,14 +1,15 @@
 # claude-skills
 
-Two skills for [Claude Code](https://claude.com/claude-code), distributed as a plugin
+Skills for [Claude Code](https://claude.com/claude-code), distributed as a plugin
 marketplace.
 
-Both are opinionated about one thing each. Neither is a bug finder.
+Each is opinionated about one thing. None is a bug finder.
 
 | Plugin | What it does |
 |---|---|
 | **[lamdan](./lamdan)** | Argues about whether the code should exist and whether this is the way to build it. Design critique, not correctness review. |
 | **[dilbert](./dilbert)** | Explains a pull request as a document a non-technical reader can follow end to end — while still being complete enough to review the change from. |
+| **[knobs](./knobs)** | Finds the policy the code has already decided but never wrote down, and extracts the chosen ones into config the code reads at runtime. |
 
 ## Install
 
@@ -18,6 +19,7 @@ In Claude Code:
 /plugin marketplace add SYKhayyat/claude-skills
 /plugin install lamdan@claude-skills
 /plugin install dilbert@claude-skills
+/plugin install knobs@claude-skills
 ```
 
 Install either one on its own; they are independent. The first command registers
@@ -43,7 +45,15 @@ this repository as a marketplace — it does not install anything by itself.
 /dilbert some/branch       # explain a branch against its merge base
 /dilbert abc123..def456    # explain a commit range
 /dilbert                   # explain the uncommitted working tree
+
+/knobs                     # inventory the policy this codebase has decided for itself
+/knobs services/billing    # aim it at a subtree
 ```
+
+`knobs` asks for its scope as its first question rather than taking a flag: it
+wants to know which part of the tree, and which environment or customer the
+policy has to vary for. Then it sweeps, asks about every candidate **once**, and
+runs a second pass over its own work.
 
 Each skill's `SKILL.md` documents its own switches and failure modes in full.
 

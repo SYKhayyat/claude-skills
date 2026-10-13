@@ -1,6 +1,6 @@
 # Onboarding
 
-Installing the two skills, running each one for the first time, and knowing what
+Installing the skills, running each one for the first time, and knowing what
 you are looking at when it answers.
 
 Ten minutes, most of it reading output.
@@ -27,6 +27,7 @@ In Claude Code:
 /plugin marketplace add SYKhayyat/claude-skills
 /plugin install lamdan@claude-skills
 /plugin install dilbert@claude-skills
+/plugin install knobs@claude-skills
 ```
 
 They are independent. Install either one on its own.
@@ -53,11 +54,11 @@ Both skills declare `Read`, `Grep`, `Glob`, `Bash`, `Agent` and `Write` in
 /plugin
 ```
 
-You should see `lamdan` and `dilbert` listed as installed. If the marketplace
+You should see `lamdan`, `dilbert` and `knobs` listed as installed. If the marketplace
 added but the plugins do not appear, see
 [TROUBLESHOOTING](TROUBLESHOOTING.md#installation).
 
-Then just type `/lamdan` or `/dilbert` — if the slash command completes, you are
+Then just type `/lamdan`, `/dilbert` or `/knobs` — if the slash command completes, you are
 done.
 
 ## 3. First run: dilbert
@@ -242,9 +243,11 @@ lamdan/
   skills/lamdan/SKILL.md           the skill itself — this is the whole product
 dilbert/
   ... the same shape
+knobs/
+  ... the same shape
 ```
 
-**`SKILL.md` is the product.** Both are long prose documents with YAML front
+**`SKILL.md` is the product.** Each is a long prose document with YAML front
 matter, and the front matter matters:
 
 ```yaml
@@ -292,10 +295,11 @@ installing, this is why.
 
 ## Where to go next
 
-- [../README.md](../README.md) — the summary of both.
+- [../README.md](../README.md) — the summary of them all.
 - [TROUBLESHOOTING.md](TROUBLESHOOTING.md) — install problems, skills not
   firing, `gh` auth, tool permissions.
 - [`../lamdan/skills/lamdan/SKILL.md`](../lamdan/skills/lamdan/SKILL.md) and
-  [`../dilbert/skills/dilbert/SKILL.md`](../dilbert/skills/dilbert/SKILL.md) —
+  [`../dilbert/skills/dilbert/SKILL.md`](../dilbert/skills/dilbert/SKILL.md) and
+  [`../knobs/skills/knobs/SKILL.md`](../knobs/skills/knobs/SKILL.md) —
   each documents its own switches and failure modes in full. They are the real
   documentation; everything here is a way in.
